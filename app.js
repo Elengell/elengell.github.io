@@ -1,7 +1,5 @@
 var map;
 var path;
-var controlText = '';
-var waypts = [];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -10,9 +8,7 @@ function initMap() {
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
     });
-
     var elevator = new google.maps.ElevationService;
-    var infowindow = new google.maps.InfoWindow({map: map});
 
 /*    google.maps.event.addListener(map, "rightclick", function(event) {
         var lat = event.latLng.lat();
