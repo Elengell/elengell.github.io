@@ -47,6 +47,7 @@ function initMap() {
             elevator.getElevationForLocations({
                 'locations': [dot]
             }, function(results, status) {
+                console.log(status);
                 $('#info').append("<p>" + dot + " alt.= " + results[0].elevation + "</p><br>");
             });
         });
