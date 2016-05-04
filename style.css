@@ -1,0 +1,24 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map {
+    height: 100%;
+    width: 75%;
+    display: inline-block;
+}
+
+#info {
+    display: inline-block;
+    width: 25%;
+    height: calc(100% - 30px);
+    float: right;
+    margin-top: 30px;
+}
+
+#submitter {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
