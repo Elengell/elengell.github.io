@@ -49,6 +49,7 @@ function initMap() {
                 'locations': [dot]
             }, function(results, status) {
                 altSum = altSum + results[0].elevation;
+                console.log(altSum);
                 $('#info').append("<p>" + dot + " <br>Высота = " + results[0].elevation + "</p>");
             });
 
