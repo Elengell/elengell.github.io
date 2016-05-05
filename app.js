@@ -1,6 +1,7 @@
 var map;
 var path;
 var altSum = 0;
+var altArray = [];
 
 
 google.load('visualization', '1', {packages: ['columnchart']});
@@ -48,17 +49,11 @@ function initMap() {
             elevator.getElevationForLocations({
                 'locations': [dot]
             }, function(results, status) {
-                altSum = altSum + results[0].elevation;
-                console.log(altSum);
+                //altSum = altSum + results[0].elevation;
                 $('#info').append("<p>" + dot + " <br>Высота = " + results[0].elevation + "</p>");
             });
 
         });
-
-        setTimeout(function() {
-            $('#info').append("<p>Суммарное изменение высоты<br>(по всем перепадам)<br>" + Math.round(altSum) + "m</p><br>");
-        }, 1000);
-
         //отрисовка графика перепада высот
         displayPathElevation(path, elevator, map);
 
@@ -66,8 +61,6 @@ function initMap() {
 }
 
 function displayPathElevation(path, elevator, map) {
-    console.log(path);
-
     // отображение законченного полинома
     new google.maps.Polyline({
         path: path,
@@ -99,7 +92,16 @@ function plotElevation(elevations, status) {
     data.addColumn('number', 'Elevation');
     for (var i = 0; i < elevations.length; i++) {
         data.addRow(['', elevations[i].elevation]);
+        altArray.push(elevations[i].elevation);
     }
+
+    //перебираем массив высот, для определения суммарного перепада
+    altArray.forEach(function(el, index, arr) {
+        if (index != arr.length-1) {
+            altSum += Math.abs(arr[index+1]-arr[index]);
+        }
+    });
+    $('#info').append("<p>Суммарное изменение высоты<br>(по всем перепадам)<br>" + Math.round(altSum) + "m</p><br>");
 
     // непосредственно отрисовка
     chart.draw(data, {
