@@ -70,7 +70,7 @@ function displayPathElevation(path, elevator, map) {
 
     elevator.getElevationAlongPath({
         'path': path,
-        'samples': 50 // количество точек на оси Х
+        'samples': 250 // количество точек на оси Х
     }, plotElevation);
 }
 
