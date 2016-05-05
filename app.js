@@ -49,7 +49,6 @@ function initMap() {
             elevator.getElevationForLocations({
                 'locations': [dot]
             }, function(results, status) {
-                //altSum = altSum + results[0].elevation;
                 $('#info').append("<p>" + dot + " <br>Высота = " + results[0].elevation + "</p>");
             });
 
@@ -98,6 +97,7 @@ function plotElevation(elevations, status) {
     //перебираем массив высот, для определения суммарного перепада
     altArray.forEach(function(el, index, arr) {
         if (index != arr.length-1) {
+            console.log(Math.abs(arr[index+1]-arr[index]));
             altSum += Math.abs(arr[index+1]-arr[index]);
         }
     });
