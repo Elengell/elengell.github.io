@@ -37,13 +37,19 @@ function initMap() {
     });
     drawingManager.setMap(map);
 
+
+
     google.maps.event.addListener(drawingManager, 'polylinecomplete', function (event) {
-        path = event.getPath().getArray();
+        path = event.getPath().getArray();   //массив точек
+
+        var pathLength = google.maps.geometry.spherical.computeLength(path).toFixed(2); //длина пути
+        $('#info').append("<p>pathLength = " + pathLength + "m</p><br>");
+
+        //вывод координат и высоты каждой точки
         path.forEach(function(dot) {
             elevator.getElevationForLocations({
                 'locations': [dot]
             }, function(results, status) {
-                console.log(status);
                 $('#info').append("<p>" + dot + " alt.= " + results[0].elevation + "</p><br>");
             });
         });

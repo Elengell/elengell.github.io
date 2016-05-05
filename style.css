@@ -12,9 +12,7 @@ html, body {
 #info {
     display: inline-block;
     width: 25%;
-    height: calc(100% - 30px);
     float: right;
-    margin-top: 30px;
 }
 
 #submitter {
