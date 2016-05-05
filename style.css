@@ -4,7 +4,7 @@ html, body {
     padding: 0;
 }
 #map {
-    height: 100%;
+    height: calc(100% - 160px);
     width: 75%;
     display: inline-block;
 }
@@ -19,4 +19,9 @@ html, body {
     position: absolute;
     right: 0;
     top: 0;
+}
+#chart {
+    width: 100%;
+    display: block;
+
 }

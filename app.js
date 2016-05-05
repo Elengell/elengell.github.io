@@ -1,6 +1,9 @@
 var map;
 var path;
 
+
+google.load('visualization', '1', {packages: ['columnchart']});
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 52.960, lng: 36.079},
@@ -9,13 +12,6 @@ function initMap() {
 
     });
     var elevator = new google.maps.ElevationService;
-
-/*    google.maps.event.addListener(map, "rightclick", function(event) {
-        var lat = event.latLng.lat();
-        var lng = event.latLng.lng();
-        // populate yor box/field with lat, lng
-        console.log("Lat=" + lat + "; Lng=" + lng);
-    });*/
 
     var drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.MARKER,
@@ -39,6 +35,7 @@ function initMap() {
 
 
 
+    //события конца рисования полинома
     google.maps.event.addListener(drawingManager, 'polylinecomplete', function (event) {
         path = event.getPath().getArray();   //массив точек
 
@@ -50,8 +47,56 @@ function initMap() {
             elevator.getElevationForLocations({
                 'locations': [dot]
             }, function(results, status) {
-                $('#info').append("<p>" + dot + " alt.= " + results[0].elevation + "</p><br>");
+                $('#info').append("<p>" + dot + " <br>alt.= " + results[0].elevation + "</p>");
             });
         });
+
+        //отрисовка графика перепада высот
+        displayPathElevation(path, elevator, map);
+
+    });
+}
+
+function displayPathElevation(path, elevator, map) {
+    console.log(path);
+
+    // отображение законченного полинома
+    new google.maps.Polyline({
+        path: path,
+        strokeColor: '#0000CC',
+        opacity: 0.4,
+        map: map
+    });
+
+    elevator.getElevationAlongPath({
+        'path': path,
+        'samples': 50 // количество точек на оси Х
+    }, plotElevation);
+}
+
+function plotElevation(elevations, status) {
+    var chartDiv = document.getElementById('elevation_chart');
+    if (status !== google.maps.ElevationStatus.OK) {
+        // проверка на ошибки в запросе высоты
+        chartDiv.innerHTML = 'Cannot show elevation: request failed because ' +
+            status;
+        return;
+    }
+
+    //инициализация объекта графика в диве
+    var chart = new google.visualization.ColumnChart(chartDiv);
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Sample');
+    data.addColumn('number', 'Elevation');
+    for (var i = 0; i < elevations.length; i++) {
+        data.addRow(['', elevations[i].elevation]);
+    }
+
+    // непосредственно отрисовка
+    chart.draw(data, {
+        height: 150,
+        legend: 'none',
+        titleY: 'Elevation (m)'
     });
 }
