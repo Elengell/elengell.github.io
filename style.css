@@ -10,9 +10,11 @@ html, body {
 }
 
 #info {
+    height: calc(100% - 160px);
     display: inline-block;
     width: 25%;
     float: right;
+    overflow: auto;
 }
 
 #submitter {
