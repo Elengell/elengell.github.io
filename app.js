@@ -1,5 +1,6 @@
 var map;
 var path;
+var altSum = 0;
 
 
 google.load('visualization', '1', {packages: ['columnchart']});
@@ -40,16 +41,23 @@ function initMap() {
         path = event.getPath().getArray();   //массив точек
 
         var pathLength = google.maps.geometry.spherical.computeLength(path).toFixed(2); //длина пути
-        $('#info').append("<p>pathLength = " + pathLength + "m</p><br>");
+        $('#info').append("<p>Дистанция пути = " + pathLength + "m</p>");
 
         //вывод координат и высоты каждой точки
         path.forEach(function(dot) {
             elevator.getElevationForLocations({
                 'locations': [dot]
             }, function(results, status) {
-                $('#info').append("<p>" + dot + " <br>alt.= " + results[0].elevation + "</p>");
+                altSum = altSum + results[0].elevation;
+                console.log(altSum);
+                $('#info').append("<p>" + dot + " <br>Высота = " + results[0].elevation + "</p>");
             });
+
         });
+
+        setTimeout(function() {
+            $('#info').append("<p>Суммарное изменение высоты<br>(по всем перепадам)<br>" + Math.round(altSum) + "m</p><br>");
+        }, 1000);
 
         //отрисовка графика перепада высот
         displayPathElevation(path, elevator, map);
