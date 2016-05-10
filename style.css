@@ -3,27 +3,111 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
+#logout {
+    right: 10px;
+    top: 10px;
+    position: absolute;
+    display: inline-block;
+}
+#username {
+    display: inline-block;
+}
+a {display: inline-block}
+
+
 #map {
-    height: 100%;
-    width: 75%;
+    height: calc(100% - 160px);
+    width: 60%;
     display: inline-block;
 }
 
 #info {
+    margin-top: 40px;
+    height: calc(100% - 200px);
     display: inline-block;
-    width: 25%;
-    height: calc(100% - 30px);
+    width: calc(40% - 30px);
     float: right;
+    overflow: auto;
+    padding: 0 15px;
+}
+
+#userRoutes {
+    width: 100%;
     margin-top: 30px;
+    border-collapse: collapse;
+    border: 1px solid rgba(109, 118, 255, 1);
+}
+.path_id {display: none}
+.path {display: none}
+.path_name {width: 35%}
+.comment {width: 65%}
+
+td {
+    padding: 15px 5px;
+    border-top: 1px solid rgba(109, 118, 255, 1);
+    cursor: pointer;
+}
+tr:hover td {
+    background: whitesmoke;
+}
+tr:hover .removeBtn {
+   opacity: 1;
 }
 
-#submitter {
-    position: absolute;
-    right: 0;
-    top: 0;
+thead > tr > th {
+    padding: 10px 0;
+}
+thead:hover td {
+    background: white;
 }
 
-#logout {
+
+#saver {
+    margin-top: 10px;
+    width: 80%;
+    text-align: center;
+    padding: 10px 0;
+    background: rgba(109, 118, 255, 1);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid;
+}
+.saveFormCol {
+    display: inline-block;
+    width: 50%;
+}
+.saveFormCol:not(:first-child) {
     float: right;
+}
 
+#comment_visible {
+    height: 50px;
+}
+
+.save_path_input {
+    display: block;
+    width: 80%;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+#saveForm, #deleteForm, th.removeBtn {
+    display: none;
+}
+
+
+#chart {
+    width: 100%;
+    display: block;
+}
+
+
+.removeBtn {
+    opacity: 0;
+    color: #ff98a6;
+}
+.removeBtn:hover {
+    color: red;
 }
