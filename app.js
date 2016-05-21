@@ -1,11 +1,11 @@
-var map;
-var path;
-var altSum = 0;
-var altArray = [];
-var pathJson;
-var pathLength;
-var polyline;
-var lines = [];
+var map,  //объект карты
+    path,  //массив точек
+    altSum = 0,  //суммарный перепад высот
+    altArray = [],  //высота на каждой выбранных точек маршрута
+    pathJson,  //массив точек для хранения в базе
+    pathLength,  //дистанция маршрута
+    polyline,  //объект полинома на карте
+    lines = [];  //массив полиномов (для зачистки карты)
 
 google.load('visualization', '1', {packages: ['columnchart']});
 

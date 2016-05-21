@@ -8,13 +8,18 @@
         $r_password = $_POST['r_password'];
         if ($password == $r_password) {
             $password = md5($password);
-            $query = mysql_query("INSERT INTO users VALUES ('', '$username', '$login', '$password')") or die(mysql_error());
-            header('location:login.php');
+            $queryCheck = mysql_query("SELECT * FROM users WHERE login = '$login'") or die(mysql_error());
+            $check = mysql_fetch_array($queryCheck);
+            if ($check['login'] == $login) {
+                die("Пользователь с таким логином уже зарегистрирован");
+            } else {
+                $query = mysql_query("INSERT INTO users VALUES ('', '$username', '$login', '$password')") or die(mysql_error());
+                header('location:login.php');
+            }
         } else {
             die('Пароли должны совпадать');
         }
     }
-
 
 session_start();
 if (isset($_SESSION['name'])) {
@@ -36,6 +41,4 @@ if (isset($_SESSION['name'])) {
     </div>
         ';
 }
-
-
 ?>
