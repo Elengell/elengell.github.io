@@ -67,6 +67,8 @@ function initMap(pathFowShow) {
         }
     });
     drawingManager.setMap(map);
+    drawingManager.set('drawingMode');
+
 
     //события конца рисования полинома
     google.maps.event.addListener(drawingManager, 'polylinecomplete', function (event) {
@@ -75,24 +77,16 @@ function initMap(pathFowShow) {
                 lines[i].setMap(null); //or line[i].setVisible(false);
             }
         }
-
         path = event.getPath().getArray();   //массив точек
         pathJson = JSON.stringify(path);
-        console.log(path);
-
         pathLength = google.maps.geometry.spherical.computeLength(path).toFixed(2); //длина пути
-
-        //вывод координат и высоты каждой точки
-        path.forEach(function(dot) {
+/*        path.forEach(function(dot) {
             elevator.getElevationForLocations({
                 'locations': [dot]
             }, function(results, status) {
-/*
                 $('#info').append("<p>" + dot + " <br>Высота = " + results[0].elevation + "</p>");
-*/
             });
-
-        });
+        });*/
         //отрисовка графика перепада высот
         displayPathElevation(path, elevator, map);
     });
@@ -102,6 +96,7 @@ function displayPathElevation(path, elevator, map) {
     // отображение законченного полинома
     polyline = new google.maps.Polyline({
         path: path,
+        //editable: true,
         strokeColor: '#0000CC',
         opacity: 0.4,
         map: map
@@ -147,7 +142,7 @@ function plotElevation(elevations, status) {
         "<p>Суммарное изменение высоты<br>(по всем перепадам)<br>" + Math.round(altSum) + "m</p><br></div>" +
         "<div class='saveFormCol'><input class='save_path_input' id='path_name_visible' type='text' placeholder='Имя маршрута'>" +
         "<textarea class='save_path_input' id='comment_visible' cols='40' rows='5' placeholder='Комментарий'></textarea>" +
-        "<div id='saver' onclick='savePath()'>Сохранить путь</div></div>");
+        "<div id='saver' onclick='savePath()'>Сохранить путь</div></div>").show('slow');
 
     // непосредственно отрисовка графика
     chart.draw(data, {
@@ -156,7 +151,6 @@ function plotElevation(elevations, status) {
         titleY: 'Elevation (m)'
     });
 }
-
 
 //механизм сохранения маршрута в базу
 function savePath() {
@@ -178,7 +172,6 @@ function deletePath(el) {
     $('#deletePath').click();
     el.remove();
 }
-
 
 // механизм отрисовки пути из таблицы
 $('.table_tr').click(function() {
@@ -228,7 +221,7 @@ function drawLineFromBase(path, elevator, map) {
 
     elevator.getElevationAlongPath({
         'path': path,
-        'samples': 250 // количество точек на оси Х
+        'samples': 300 // количество точек на оси Х
     }, drowChartFromBase);
 }
 
@@ -259,12 +252,10 @@ function drowChartFromBase(elevations, status) {
         }
     });
 
-
     //параметры пути
     $('#info').find(".saveFormCol").remove();
     $('#info').prepend("<div class='saveFormCol'><p>Дистанция пути = " + pathLength + "m</p>" +
-        "<p>Суммарное изменение высоты<br>(по всем перепадам)<br>" + Math.round(altSum) + "m</p><br></div>");
-
+        "<p>Суммарное изменение высоты<br>(по всем перепадам)<br>" + Math.round(altSum) + "m</p><br></div>").show('slow');
 
     // непосредственно отрисовка графика
     chart.draw(data, {

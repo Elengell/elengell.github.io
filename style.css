@@ -3,7 +3,6 @@ html, body {
     margin: 0;
     padding: 0;
 }
-
 #logout {
     right: 10px;
     top: 10px;
@@ -13,15 +12,14 @@ html, body {
 #username {
     display: inline-block;
 }
-a {display: inline-block}
-
-
+a {
+    display: inline-block
+}
 #map {
     height: calc(100% - 160px);
     width: 60%;
     display: inline-block;
 }
-
 #info {
     margin-top: 40px;
     height: calc(100% - 200px);
@@ -31,7 +29,6 @@ a {display: inline-block}
     overflow: auto;
     padding: 0 15px;
 }
-
 #userRoutes {
     width: 100%;
     margin-top: 30px;
@@ -42,7 +39,6 @@ a {display: inline-block}
 .path {display: none}
 .path_name {width: 35%}
 .comment {width: 65%}
-
 td {
     padding: 15px 5px;
     border-top: 1px solid rgba(109, 118, 255, 1);
@@ -54,15 +50,12 @@ tr:hover td {
 tr:hover .removeBtn {
    opacity: 1;
 }
-
 thead > tr > th {
     padding: 10px 0;
 }
 thead:hover td {
     background: white;
 }
-
-
 #saver {
     margin-top: 10px;
     width: 80%;
@@ -81,29 +74,22 @@ thead:hover td {
 .saveFormCol:not(:first-child) {
     float: right;
 }
-
 #comment_visible {
     height: 50px;
 }
-
 .save_path_input {
     display: block;
     width: 80%;
     margin-top: 10px;
     padding: 5px;
 }
-
 #saveForm, #deleteForm, th.removeBtn {
     display: none;
 }
-
-
 #chart {
     width: 100%;
     display: block;
 }
-
-
 .removeBtn {
     opacity: 0;
     color: #ff98a6;

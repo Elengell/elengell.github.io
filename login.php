@@ -20,8 +20,6 @@ if (isset($_SESSION['name'])) {
         ';
 }
 
-
-
 if (isset($_POST['enter'])) {
     $e_login = $_POST['e_login'];
     $e_password = md5($_POST['e_password']);
@@ -38,5 +36,3 @@ if (isset($_POST['enter'])) {
         echo "Неверный логин или пароль";
     }
 }
-
-
