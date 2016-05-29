@@ -167,7 +167,7 @@ function savePath() {
 //механизм удаления маршрута из базы
 $(document).ready(function() {
     $('tr:first').append("<td></td>");
-    $('tr:not(:first)').append("<td class='removeBtn' onclick='deletePath($(this).parent())'>Delete</td>");
+    $('tr:not(:first)').append("<td class='removeBtn' onclick='deletePath($(this).parent())'>Удалить</td>");
 });
 function deletePath(el) {
     $('#pathId').val(el.find('.path_id').text());

@@ -40,7 +40,7 @@ function build_table($array){
     $html .= '<thead>';
     foreach($array[0] as $key=>$value){
        if ($key == "path_name") {
-           $key = "Имя маршрута";
+           $key = "Название маршрута";
        } elseif ($key == "comment") {
            $key = "Комментарий";
        };
@@ -77,7 +77,7 @@ function build_table($array){
     <body>
     <div id="logout">
         <div id="username"><?php echo $user_name?> -</div>
-        <a href="logout.php">Logout</a>
+        <a href="logout.php">Выход</a>
     </div>
 
     <div id="map"></div>
