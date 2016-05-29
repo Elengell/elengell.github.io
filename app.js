@@ -13,6 +13,8 @@ function initMap(pathFowShow) {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 52.960, lng: 36.079},
         zoom: 10,
+        streetViewControl: false,
+        zoomControl: false,
         mapTypeId: google.maps.MapTypeId.TERRAIN
     });
 
